@@ -8,6 +8,7 @@ import logging from './config/logging';
 import config from './config/config';
 
 import dbtest from './routes/testorm';
+import timetableRoute from './routes/timetableRoute';
 
 const NAMESPACE = 'Server';
 
@@ -61,6 +62,7 @@ router.use((req, res, next) => {
 
 //Routes
 router.use('/orm', dbtest);
+router.use('/timetable', timetableRoute);
 
 // Error handling
 router.use((req, res, next) => {
