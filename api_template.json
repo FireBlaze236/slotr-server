@@ -1,0 +1,62 @@
+{
+	"timetable" : {
+		"name" : "Sample Table",
+		"numrows" : 3,
+		"numcols" : 5,
+		"rows" : [
+			"Monday",
+			"Wednesday",
+			"Friday"
+		],
+		"cols" : [
+			{
+				"start" : "08:00",
+				"end" : "09:00"
+			},
+			{
+				"start" : "09:00",
+				"end" : "10:00"
+			},
+			{
+				"start" : "10:00",
+				"end" : "11:00"
+			},
+			{
+				"start" : "11:00",
+				"end" : "12:00"
+			},
+			{
+				"start" : "12:00",
+				"end" : "13:00"
+			}
+		],
+		"slots" : [
+			{
+				"title" : "Class 1",
+				"row" : 0,
+				"col" : 1
+			},
+			{
+				"title" : "Class 2",
+				"row" : 2,
+				"col" : 4
+			},
+			{
+				"title" : "Class 1",
+				"row" : 1,
+				"col" : 3
+			},
+			{
+				"title" : "Class 3",
+				"row" : 0,
+				"col" : 3
+			},
+			{
+				"title" : "Class 2",
+				"row" : 1,
+				"col" : 2
+			}
+		],
+        "id": "UUID"
+	}
+}
