@@ -9,6 +9,7 @@ import config from './config/config';
 
 import dbtest from './routes/testorm';
 import timetableRoute from './routes/timetableRoute';
+import tableDataService from './services/tableDataService';
 
 const NAMESPACE = 'Server';
 
@@ -77,3 +78,13 @@ router.use((req, res, next) => {
 
 const httpServer = http.createServer(router);
 httpServer.listen(config.server.port, () => logging.info(NAMESPACE, `Server running on ${config.server.hostname}:${config.server.port}`));
+
+//SYNCING AND DATA
+const sync = async () => {
+    logging.info(NAMESPACE, 'Static and dynamic data sync in progress!');
+    await tableDataService.syncStaticAndDynamic();
+
+    logging.info(NAMESPACE, 'Static and dynamic data synced');
+};
+
+setInterval(sync, 15000);

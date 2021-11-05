@@ -1,10 +1,11 @@
 import { TableData, ColData, SlotData } from './../model/TableData';
-import { getConnection, getRepository } from 'typeorm';
+import { getConnection, getRepository, createConnection } from 'typeorm';
 import { Timetable } from '../entity/Timetable';
 import logging from '../config/logging';
 import { Rowtable } from '../entity/Rowtable';
 import { Coltable } from '../entity/Coltable';
 import { Slottable } from '../entity/Slottable';
+import { StaticData } from '../entity/StaticData';
 
 const NAMESPACE = 'Timetable Service';
 
@@ -19,6 +20,31 @@ const check_orm_errors = () => {
     orm_error_flag = false;
 
     return val;
+};
+
+const syncStaticAndDynamic = async () => {
+    let staticData = await getRepository(StaticData).find();
+
+    for (let i = 0; i < staticData.length; i++) {
+        let backupData = JSON.parse(String(staticData[i].data));
+
+        await saveTableData(backupData);
+    }
+};
+
+const saveStaticTableData = async (data: TableData | undefined): Promise<string | undefined> => {
+    if (data == undefined || data.id == undefined) {
+        logging.error(NAMESPACE, 'Static save data invalid(requires id)');
+        return undefined;
+    }
+
+    let backup = new StaticData();
+    backup.id = data.id;
+    backup.data = JSON.stringify(data);
+
+    await getRepository(StaticData).save(backup);
+
+    return saveTableData(data);
 };
 
 const saveTableData = async (data: TableData | undefined): Promise<string | undefined> => {
@@ -147,4 +173,4 @@ const getSlotArray = (slotData: Slottable[]): SlotData[] => {
     return arr;
 };
 
-export default { saveTableData, getTableDataByID };
+export default { saveTableData, getTableDataByID, saveStaticTableData, syncStaticAndDynamic };
