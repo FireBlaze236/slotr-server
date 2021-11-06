@@ -87,4 +87,4 @@ const sync = async () => {
     logging.info(NAMESPACE, 'Static and dynamic data synced');
 };
 
-setInterval(sync, 15000);
+//setInterval(sync, 15000);

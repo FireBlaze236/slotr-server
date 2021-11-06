@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import logging from '../config/logging';
 import { TableData } from '../model/TableData';
 import timetableService from '../services/tableDataService';
+import { StaticData } from '../entity/StaticData';
 
 const NAMESPACE = 'Timetable Controller';
 
@@ -99,4 +100,35 @@ const getTimetableData = async (req: Request, res: Response, next: NextFunction)
     }
 };
 
-export default { getTimetableData, saveTimetableDataDynamic, saveTimetableDataStatic };
+const getStaticTimetableData = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Timetable controller get table data route called.');
+    // if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    //     logging.error(NAMESPACE, 'Route called without body');
+    //     return res.status(400).json({
+    //         message: 'Request without body'
+    //     });
+    if (req.params.id == null) {
+        logging.error(NAMESPACE, 'Route called with invalid parameters');
+        return res.status(400).json({
+            message: 'Invalid request'
+        });
+    }
+
+    const findId = req.params.id;
+
+    let staticData: StaticData | undefined = await timetableService.getStaticData(findId);
+
+    if (staticData != undefined) {
+        let data = JSON.parse(String(staticData.data));
+        return res.status(200).json({
+            message: 'Get Static Data success',
+            result: data
+        });
+    } else {
+        return res.status(500).json({
+            message: 'Get Static Data failed'
+        });
+    }
+};
+
+export default { getTimetableData, saveTimetableDataDynamic, saveTimetableDataStatic, getStaticTimetableData };

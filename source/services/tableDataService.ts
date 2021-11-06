@@ -173,4 +173,19 @@ const getSlotArray = (slotData: Slottable[]): SlotData[] => {
     return arr;
 };
 
-export default { saveTableData, getTableDataByID, saveStaticTableData, syncStaticAndDynamic };
+const getStaticData = async (searchId: string | undefined): Promise<StaticData | undefined> => {
+    if (searchId == undefined) {
+        logging.error(NAMESPACE, 'Get static data id type mismatch', searchId);
+        return undefined;
+    }
+
+    let timetableData = await getRepository(StaticData).findOne({ where: { id: searchId } });
+    if (timetableData == undefined) {
+        logging.error(NAMESPACE, 'Get statuc data id mismatch', searchId);
+        return undefined;
+    }
+
+    return timetableData;
+};
+
+export default { saveTableData, getTableDataByID, saveStaticTableData, syncStaticAndDynamic, getStaticData };
