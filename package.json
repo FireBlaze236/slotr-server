@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf build/ --write source/ && tsc",
-    "heroku-postbuild": "nodemon ./build/server.js"
+    "postinstall": "tsc",
+    "start": "node build/server.js"
   },
   "author": "fireblaze236",
   "license": "ISC",
