@@ -5,8 +5,8 @@
   "main": "source/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf build/ && prettier --write source/ && tsc",
-    "heroku-postbuild": "nodemon ./source/server.ts"
+    "build": "rm -rf build/ --write source/ && tsc",
+    "heroku-postbuild": "nodemon ./build/server.js"
   },
   "author": "fireblaze236",
   "license": "ISC",
