@@ -11,6 +11,8 @@ import dbtest from './routes/testorm';
 import timetableRoute from './routes/timetableRoute';
 import tableDataService from './services/tableDataService';
 
+const cors = require('cors');
+
 const NAMESPACE = 'Server';
 
 //Connect to database
@@ -23,6 +25,8 @@ createConnection()
     });
 
 const router = express();
+
+router.use(cors());
 
 // Logging the request
 router.use((req, res, next) => {
@@ -55,8 +59,6 @@ router.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
     if (req.method == 'OPTIONS') {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
         res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT');
         return res.status(200).json({});
     }

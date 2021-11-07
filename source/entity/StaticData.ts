@@ -5,6 +5,6 @@ import { Timetable } from './Timetable';
 export class StaticData {
     @PrimaryColumn('uuid')
     id?: string;
-    @Column()
+    @Column({ length: '8096' })
     data?: string;
 }

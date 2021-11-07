@@ -28,12 +28,12 @@ const saveTimetableDataStatic = async (req: Request, res: Response, next: NextFu
         data.id = success;
         return res.status(200).json({
             message: 'Save STATIC Route success',
-            dataSaved: data
+            result: data
         });
     } else {
         return res.status(500).json({
             message: 'Save STATIC failed',
-            failData: data
+            result: data
         });
     }
 };
@@ -60,12 +60,12 @@ const saveTimetableDataDynamic = async (req: Request, res: Response, next: NextF
         data.id = success;
         return res.status(200).json({
             message: 'Save Route success',
-            dataSaved: data
+            result: data
         });
     } else {
         return res.status(500).json({
             message: 'Save failed',
-            failData: data
+            result: data
         });
     }
 };
